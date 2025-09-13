@@ -16,17 +16,14 @@
       }
       body {
         font-family: "Arial", sans-serif;
-        background: linear-gradient(
-          135deg,
-          hsl(240, 100%, 50%) 0%,
-          #474a52 50%,
-          #0073ff 100%
-        );
+        background: url("assets/cricket8.jpg") no-repeat center center fixed;
+        background-size: cover;
         height: 100vh;
         overflow: hidden;
         color: #ffffff;
         font-size: 14px;
       }
+
       .auction-overlay {
         position: fixed;
         top: 0;
@@ -40,9 +37,8 @@
 
       /* Enhanced League Header with All 3 Logos in Line */
       .league-header {
-        padding: 15px 40px;
         background: rgba(52, 73, 94, 0.8);
-        height: 140px;
+        height: 160px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -51,20 +47,13 @@
 
       /* Left Logo */
       .left-logo {
-        width: 120px;
-        height: 100px;
+        width: 220px;
+        height: 190px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        /* Use a very light, almost white gradient background */
-        background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
-        box-shadow: 0 0 30px rgba(0, 240, 255, 0.7),
-          0 0 60px rgba(0, 240, 255, 0.4), 0 0 90px rgba(0, 240, 255, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        position: relative;
-        transition: all 0.4s ease-in-out;
       }
 
       .left-logo img {
@@ -72,14 +61,14 @@
         height: 100%;
         object-fit: cover;
         /* Increase brightness and saturation for a more vibrant look */
-        filter: brightness(1.4) contrast(1.2) saturate(1.5);
+        filter: brightness(1.4) contrast(1.8) saturate(1.5);
         transition: all 0.4s ease-in-out;
       }
 
       /* Center Tournament Logo */
       .tournament-logo {
-        width: 300px;
-        height: 80px;
+        width: 600px;
+        height: 130px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -93,8 +82,8 @@
 
       /* Right Logo */
       .right-logo {
-        width: 120px;
-        height: 100px;
+        width: 220px;
+        height: 220px;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -145,13 +134,13 @@
       /* Large Center Logo Below Header */
       .center-logo-section {
         background: rgba(30, 39, 73, 0.4);
-        padding: 20px 0;
+        padding: 10px 0;
         text-align: center;
         border-bottom: 1px solid rgba(52, 152, 219, 0.2);
       }
       .center-logo {
-        width: 180px;
-        height: 90px;
+        width: 220px;
+        height: 120px;
         margin: 0 auto;
         border-radius: 15px;
         display: flex;
@@ -524,11 +513,10 @@
       <!-- Enhanced Header with All 3 Logos in Line -->
       <div class="league-header">
         <!-- Left Logo -->
-        <div class="sponsor-label left-sponsor">Travel Partner</div>
         <div class="left-logo">
           <img
             id="leftImage"
-            src="assets/travelpartner.png"
+            src="assets/left.png"
             alt="Left Sponsor"
             onerror="this.style.display='none'"
           />
@@ -537,27 +525,22 @@
         <!-- Center Tournament Logo -->
         <div class="tournament-logo">
           <img
-            id="tournamentLogo"
-            src=""
+            src="assets/rrclogo.png"
             alt="Tournament Logo"
             onerror="this.style.display='none'"
           />
-          <span style="font-size: 35px; color: #3498db">🏆</span>
         </div>
 
         <!-- Right Logo -->
         <div class="right-logo">
           <img
             id="rightImage"
-            src="assets/right-image.png"
+            src="assets/right.png"
             alt="Right Sponsor"
             onerror="this.style.display='none'"
           />
         </div>
 
-        <!-- Sponsor Labels -->
-        <div class="sponsor-label right-sponsor">Title Sponsor</div>
-        <div class="sponsor-name">NISHIT OVERSEAS</div>
       </div>
 
       <!-- Large Center Logo Section -->
@@ -687,7 +670,7 @@
           document.getElementById("playerName").textContent =
             data.playerName || "Unknown Player";
           document.getElementById("playerId").textContent =
-            data.playerId || "--";
+            data.playerFormId || "--";
           document.getElementById("playerRole").textContent =
             data.role || "Unknown";
           document.getElementById("playerLocation").textContent =
@@ -736,7 +719,7 @@
 
           if (data.tournImg) {
             const logo = document.getElementById("tournamentLogo");
-            logo.src = data.tournImg;
+            logo.src = "";
             logo.style.display = "block";
             logo.nextElementSibling.style.display = "none";
           }
