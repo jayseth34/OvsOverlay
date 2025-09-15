@@ -384,6 +384,50 @@
         box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
       }
 
+      /* Watermark Logo - Bottom Right */
+      .watermark-logo {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 150px;
+        height: 120px;
+        z-index: 1000;
+        opacity: 0.3;
+        pointer-events: none; /* Allows clicks to pass through */
+        transition: opacity 0.3s ease;
+      }
+
+      .watermark-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .watermark-logo:hover {
+        opacity: 0.9;
+      }
+
+      /* Responsive adjustments for watermark */
+      @media (max-width: 768px) {
+        .watermark-logo {
+          width: 60px;
+          height: 60px;
+          bottom: 15px;
+          right: 15px;
+          opacity: 0.6;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .watermark-logo {
+          width: 50px;
+          height: 50px;
+          bottom: 10px;
+          right: 10px;
+          opacity: 0.5;
+        }
+      }
+
       /* Responsive Design */
       @media (max-width: 1200px) {
         .player-section {
@@ -540,7 +584,6 @@
             onerror="this.style.display='none'"
           />
         </div>
-
       </div>
 
       <!-- Large Center Logo Section -->
@@ -607,6 +650,9 @@
           </div>
         </div>
       </div>
+      <div class="watermark-logo">
+        <img src="assets/sportyfy.jpeg" alt="Watermark" id="watermarkImage" />
+      </div>
     </div>
 
     <script>
@@ -651,6 +697,15 @@
             const result = await response.json();
 
             if (result.statusCode === 200 && result.data) {
+              // Only check if tournamentId is 0 to determine invalid state
+              if (result.data.tournamentId === 0) {
+                console.log(
+                  "Received invalid state (tournamentId = 0), skipping UI update"
+                );
+                this.updateLoadingIndicator("Waiting for valid data...");
+                return; // Don't update UI if tournamentId is 0
+              }
+
               this.currentData = result.data;
               this.updateDisplay(result.data);
               this.updateLoadingIndicator("Connected");
@@ -719,9 +774,13 @@
 
           if (data.tournImg) {
             const logo = document.getElementById("tournamentLogo");
-            logo.src = "";
-            logo.style.display = "block";
-            logo.nextElementSibling.style.display = "none";
+            if (logo) {
+              logo.src = data.tournImg;
+              logo.style.display = "block";
+              if (logo.nextElementSibling) {
+                logo.nextElementSibling.style.display = "none";
+              }
+            }
           }
         }
 
